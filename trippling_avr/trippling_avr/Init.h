@@ -1,10 +1,13 @@
-/*
- * Init.h
+/** @file Init.h
+ *  @brief A System function
  *
- * Created: 11/2/2018 13:59:51
- *  Author: Miroslav Pivovarsky
- */ 
-
+ *  Inicialization function
+ *
+ *  @date 11/2/2018 13:59:51
+ *  @author Miroslav Pivovarsky (mpivovarsky)
+ *  @version 0.1
+ *  @bug No know bugs.
+ */
 
 #ifndef INIT_H_
 #define INIT_H_

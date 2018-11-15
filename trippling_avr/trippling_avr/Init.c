@@ -1,20 +1,33 @@
-/*
- * Init.c
+/** @file Init.c
+ *  @brief A System function
  *
- * Created: 11/2/2018 14:00:06
- *  Author: Miroslav Pivovarsky
- */ 
+ *  Inicialization function
+ *
+ *  @date 11/2/2018 13:59:51
+ *  @author Miroslav Pivovarsky (mpivovarsky)
+ *  @version 0.1
+ *  @bug No know bugs.
+ */
 
 #include "init.h"
 
-void initGpioPin()
+/** @brief initGpioPin
+ *
+ *  Function for initialization GPIO pin
+ *
+ *  @param void
+ *  @return void
+*/
+void initGpioPin(void)
 {
 	// Output pin
 	DDRB |= (1 << RELE_LEFT);
 	PORTB |= (1 << RELE_LEFT);
+	PORTB &= ~(1 << RELE_LEFT);   // RELE off
 	
 	DDRB |= (1 << RELE_RIGHT);
 	PORTB |= (1 << RELE_RIGHT);
+	PORTB &= ~(1 << RELE_RIGHT);   // RELE off
 	
 	// Input pin
 	DDRB &= ~(1 << INPUT_LEFT);    // switch on (INPUT_LEFT)
@@ -23,10 +36,17 @@ void initGpioPin()
 	DDRB &= ~(1 << INPUT_RIGHT);    // switch on (INPUT_LEFT)
 	PORTB |= (1 << INPUT_RIGHT);    // enable pull-up resistor
 	
-	PORTB &= ~(1 << RELE_LEFT);   // RELE off
-	PORTB &= ~(1 << RELE_RIGHT);   // RELE off
+	DDRB &= ~(1 << INPUT_SET_BUTTON);    // switch on (INPUT_SET_BUTTON)
+	PORTB |= (1 << INPUT_SET_BUTTON);    // enable pull-up resistor
 }
 
+/** @brief initTimer1
+ *
+ *  Function for initialization Timer1
+ *
+ *  @param void
+ *  @return void
+*/
 void initTimer1(void)
 {
 	TCCR1 = 0;                  // stop the timer
@@ -44,6 +64,13 @@ void initTimer1(void)
 	sei();
 }
 
+/** @brief initInterrupt
+ *
+ *  Function for initialization Interrupt pin
+ *
+ *  @param void
+ *  @return void
+*/
 void initInterrupt(void)
 {
 	GIMSK |= (1 << PCIE);   // pin change interrupt enable
