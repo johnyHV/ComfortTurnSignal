@@ -3,29 +3,29 @@ trippling_avr.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000002e4  00000000  00000000  00000074  2**1
+  0 .text         000002b4  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000018  00800060  000002e4  00000358  2**0
+  1 .data         00000018  00800060  000002b4  00000328  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000030  00000000  00000000  00000370  2**0
+  2 .comment      00000030  00000000  00000000  00000340  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000003a0  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000370  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000158  00000000  00000000  000003e0  2**3
+  4 .debug_aranges 00000118  00000000  00000000  000003b0  2**3
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000e64  00000000  00000000  00000538  2**0
+  5 .debug_info   00000cf7  00000000  00000000  000004c8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000007bc  00000000  00000000  0000139c  2**0
+  6 .debug_abbrev 00000794  00000000  00000000  000011bf  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00000aa0  00000000  00000000  00001b58  2**0
+  7 .debug_line   00000994  00000000  00000000  00001953  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000150  00000000  00000000  000025f8  2**2
+  8 .debug_frame  00000150  00000000  00000000  000022e8  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    00000526  00000000  00000000  00002748  2**0
+  9 .debug_str    00000531  00000000  00000000  00002438  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000244  00000000  00000000  00002c6e  2**0
+ 10 .debug_loc    00000244  00000000  00000000  00002969  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000090  00000000  00000000  00002eb2  2**0
+ 11 .debug_ranges 00000090  00000000  00000000  00002bad  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -33,14 +33,14 @@ Disassembly of section .text:
 00000000 <__vectors>:
    0:	0e c0       	rjmp	.+28     	; 0x1e <__ctors_end>
    2:	20 c0       	rjmp	.+64     	; 0x44 <__bad_interrupt>
-   4:	61 c0       	rjmp	.+194    	; 0xc8 <__vector_2>
-   6:	4b c0       	rjmp	.+150    	; 0x9e <__vector_3>
+   4:	60 c0       	rjmp	.+192    	; 0xc6 <__vector_2>
+   6:	4a c0       	rjmp	.+148    	; 0x9c <__vector_3>
    8:	1d c0       	rjmp	.+58     	; 0x44 <__bad_interrupt>
    a:	1c c0       	rjmp	.+56     	; 0x44 <__bad_interrupt>
    c:	1b c0       	rjmp	.+54     	; 0x44 <__bad_interrupt>
    e:	1a c0       	rjmp	.+52     	; 0x44 <__bad_interrupt>
   10:	19 c0       	rjmp	.+50     	; 0x44 <__bad_interrupt>
-  12:	50 c0       	rjmp	.+160    	; 0xb4 <__vector_9>
+  12:	4f c0       	rjmp	.+158    	; 0xb2 <__vector_9>
   14:	17 c0       	rjmp	.+46     	; 0x44 <__bad_interrupt>
   16:	16 c0       	rjmp	.+44     	; 0x44 <__bad_interrupt>
   18:	15 c0       	rjmp	.+42     	; 0x44 <__bad_interrupt>
@@ -59,7 +59,7 @@ Disassembly of section .text:
   2a:	10 e0       	ldi	r17, 0x00	; 0
   2c:	a0 e6       	ldi	r26, 0x60	; 96
   2e:	b0 e0       	ldi	r27, 0x00	; 0
-  30:	e4 ee       	ldi	r30, 0xE4	; 228
+  30:	e4 eb       	ldi	r30, 0xB4	; 180
   32:	f2 e0       	ldi	r31, 0x02	; 2
   34:	02 c0       	rjmp	.+4      	; 0x3a <__do_copy_data+0x10>
   36:	05 90       	lpm	r0, Z+
@@ -68,7 +68,7 @@ Disassembly of section .text:
   3c:	b1 07       	cpc	r27, r17
   3e:	d9 f7       	brne	.-10     	; 0x36 <__do_copy_data+0xc>
   40:	0f d0       	rcall	.+30     	; 0x60 <main>
-  42:	4e c1       	rjmp	.+668    	; 0x2e0 <_exit>
+  42:	36 c1       	rjmp	.+620    	; 0x2b0 <_exit>
 
 00000044 <__bad_interrupt>:
   44:	dd cf       	rjmp	.-70     	; 0x0 <__vectors>
@@ -80,29 +80,29 @@ void initGpioPin(void)
 {
 	// Output pin
 	DDRB |= (1 << RELE_LEFT);
-  46:	bb 9a       	sbi	0x17, 3	; 23
+  46:	ba 9a       	sbi	0x17, 2	; 23
 	PORTB |= (1 << RELE_LEFT);
-  48:	c3 9a       	sbi	0x18, 3	; 24
+  48:	c2 9a       	sbi	0x18, 2	; 24
 	PORTB &= ~(1 << RELE_LEFT);   // RELE off
-  4a:	c3 98       	cbi	0x18, 3	; 24
+  4a:	c2 98       	cbi	0x18, 2	; 24
 	
 	DDRB |= (1 << RELE_RIGHT);
-  4c:	bc 9a       	sbi	0x17, 4	; 23
+  4c:	b9 9a       	sbi	0x17, 1	; 23
 	PORTB |= (1 << RELE_RIGHT);
-  4e:	c4 9a       	sbi	0x18, 4	; 24
+  4e:	c1 9a       	sbi	0x18, 1	; 24
 	PORTB &= ~(1 << RELE_RIGHT);   // RELE off
-  50:	c4 98       	cbi	0x18, 4	; 24
+  50:	c1 98       	cbi	0x18, 1	; 24
 	
 	// Input pin
 	DDRB &= ~(1 << INPUT_LEFT);    // switch on (INPUT_LEFT)
-  52:	ba 98       	cbi	0x17, 2	; 23
+  52:	bc 98       	cbi	0x17, 4	; 23
 	PORTB |= (1 << INPUT_LEFT);    // enable pull-up resistor
-  54:	c2 9a       	sbi	0x18, 2	; 24
+  54:	c4 9a       	sbi	0x18, 4	; 24
 	
 	DDRB &= ~(1 << INPUT_RIGHT);    // switch on (INPUT_LEFT)
-  56:	b9 98       	cbi	0x17, 1	; 23
+  56:	bb 98       	cbi	0x17, 3	; 23
 	PORTB |= (1 << INPUT_RIGHT);    // enable pull-up resistor
-  58:	c1 9a       	sbi	0x18, 1	; 24
+  58:	c3 9a       	sbi	0x18, 3	; 24
 	
 	DDRB &= ~(1 << INPUT_SET_BUTTON);    // switch on (INPUT_SET_BUTTON)
   5a:	b8 98       	cbi	0x17, 0	; 23
@@ -139,560 +139,525 @@ void wdt_disable (void)
 	//initTimer1();
 	//initInterrupt();
 	//WriteTime(TimeForFlashing); // For manual first init Time 
-	ReadTime();
-  74:	07 d1       	rcall	.+526    	; 0x284 <ReadTime>
+	//ReadTime();
 	CheckSetButton();
-  76:	e1 d0       	rcall	.+450    	; 0x23a <CheckSetButton>
+  74:	e7 d0       	rcall	.+462    	; 0x244 <CheckSetButton>
 	
 	wdt_reset();
-  78:	a8 95       	wdr
+  76:	a8 95       	wdr
 __attribute__ ((__always_inline__))
 void wdt_enable (const uint8_t value)
 {
 	if (_SFR_IO_REG_P (_WD_CONTROL_REG))
 	{
 		__asm__ __volatile__ (
-  7a:	9e e0       	ldi	r25, 0x0E	; 14
-  7c:	88 e1       	ldi	r24, 0x18	; 24
-  7e:	0f b6       	in	r0, 0x3f	; 63
-  80:	f8 94       	cli
-  82:	a8 95       	wdr
-  84:	81 bd       	out	0x21, r24	; 33
-  86:	0f be       	out	0x3f, r0	; 63
-  88:	91 bd       	out	0x21, r25	; 33
+  78:	9e e0       	ldi	r25, 0x0E	; 14
+  7a:	88 e1       	ldi	r24, 0x18	; 24
+  7c:	0f b6       	in	r0, 0x3f	; 63
+  7e:	f8 94       	cli
+  80:	a8 95       	wdr
+  82:	81 bd       	out	0x21, r24	; 33
+  84:	0f be       	out	0x3f, r0	; 63
+  86:	91 bd       	out	0x21, r25	; 33
 	wdt_enable(WDTO_1S);
 	
 	while(1)
 	{
 		CheckButton();
-  8a:	c8 d0       	rcall	.+400    	; 0x21c <CheckButton>
+  88:	ce d0       	rcall	.+412    	; 0x226 <CheckButton>
 		Flashing();
-  8c:	6d d0       	rcall	.+218    	; 0x168 <Flashing>
+  8a:	6d d0       	rcall	.+218    	; 0x166 <Flashing>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
-  8e:	8f e0       	ldi	r24, 0x0F	; 15
-  90:	97 e2       	ldi	r25, 0x27	; 39
-  92:	01 97       	sbiw	r24, 0x01	; 1
-  94:	f1 f7       	brne	.-4      	; 0x92 <main+0x32>
-  96:	00 c0       	rjmp	.+0      	; 0x98 <main+0x38>
-  98:	00 00       	nop
+  8c:	8f e0       	ldi	r24, 0x0F	; 15
+  8e:	97 e2       	ldi	r25, 0x27	; 39
+  90:	01 97       	sbiw	r24, 0x01	; 1
+  92:	f1 f7       	brne	.-4      	; 0x90 <main+0x30>
+  94:	00 c0       	rjmp	.+0      	; 0x96 <main+0x36>
+  96:	00 00       	nop
 		_delay_ms(REFRESH_TIME);
 		wdt_reset();
-  9a:	a8 95       	wdr
-  9c:	f6 cf       	rjmp	.-20     	; 0x8a <main+0x2a>
+  98:	a8 95       	wdr
+  9a:	f6 cf       	rjmp	.-20     	; 0x88 <main+0x28>
 
-0000009e <__vector_3>:
+0000009c <__vector_3>:
  *
  *  @param TIMER1_COMPA_vect
  *  @return void
 */
 ISR(TIMER1_COMPA_vect)
 {
-  9e:	1f 92       	push	r1
-  a0:	0f 92       	push	r0
-  a2:	0f b6       	in	r0, 0x3f	; 63
-  a4:	0f 92       	push	r0
-  a6:	11 24       	eor	r1, r1
+  9c:	1f 92       	push	r1
+  9e:	0f 92       	push	r0
+  a0:	0f b6       	in	r0, 0x3f	; 63
+  a2:	0f 92       	push	r0
+  a4:	11 24       	eor	r1, r1
 	//PINB |= _BV(PINB4);         //flash the LED by toggling PB4
 	TCNT1 = 0;
-  a8:	1f bc       	out	0x2f, r1	; 47
+  a6:	1f bc       	out	0x2f, r1	; 47
 }
-  aa:	0f 90       	pop	r0
-  ac:	0f be       	out	0x3f, r0	; 63
-  ae:	0f 90       	pop	r0
-  b0:	1f 90       	pop	r1
-  b2:	18 95       	reti
+  a8:	0f 90       	pop	r0
+  aa:	0f be       	out	0x3f, r0	; 63
+  ac:	0f 90       	pop	r0
+  ae:	1f 90       	pop	r1
+  b0:	18 95       	reti
 
-000000b4 <__vector_9>:
+000000b2 <__vector_9>:
  *
  *  @param TIMER1_COMPB_vect
  *  @return void
 */
 ISR(TIMER1_COMPB_vect)
 {
-  b4:	1f 92       	push	r1
-  b6:	0f 92       	push	r0
-  b8:	0f b6       	in	r0, 0x3f	; 63
-  ba:	0f 92       	push	r0
-  bc:	11 24       	eor	r1, r1
+  b2:	1f 92       	push	r1
+  b4:	0f 92       	push	r0
+  b6:	0f b6       	in	r0, 0x3f	; 63
+  b8:	0f 92       	push	r0
+  ba:	11 24       	eor	r1, r1
 	//PINB |= _BV(PINB3);
 }
-  be:	0f 90       	pop	r0
-  c0:	0f be       	out	0x3f, r0	; 63
-  c2:	0f 90       	pop	r0
-  c4:	1f 90       	pop	r1
-  c6:	18 95       	reti
+  bc:	0f 90       	pop	r0
+  be:	0f be       	out	0x3f, r0	; 63
+  c0:	0f 90       	pop	r0
+  c2:	1f 90       	pop	r1
+  c4:	18 95       	reti
 
-000000c8 <__vector_2>:
+000000c6 <__vector_2>:
  *
  *  @param PCINT0_vect
  *  @return void
 */
 ISR(PCINT0_vect)
 {
-  c8:	1f 92       	push	r1
-  ca:	0f 92       	push	r0
-  cc:	0f b6       	in	r0, 0x3f	; 63
-  ce:	0f 92       	push	r0
-  d0:	11 24       	eor	r1, r1
+  c6:	1f 92       	push	r1
+  c8:	0f 92       	push	r0
+  ca:	0f b6       	in	r0, 0x3f	; 63
+  cc:	0f 92       	push	r0
+  ce:	11 24       	eor	r1, r1
 	/* GPIO interrupt */
 }
-  d2:	0f 90       	pop	r0
-  d4:	0f be       	out	0x3f, r0	; 63
-  d6:	0f 90       	pop	r0
-  d8:	1f 90       	pop	r1
-  da:	18 95       	reti
+  d0:	0f 90       	pop	r0
+  d2:	0f be       	out	0x3f, r0	; 63
+  d4:	0f 90       	pop	r0
+  d6:	1f 90       	pop	r1
+  d8:	18 95       	reti
 
-000000dc <FlashingLed>:
+000000da <FlashingLed>:
  *
  *  @param Light - struct with configuration for specific bulb
  *  @return void
 */
 void FlashingLed(struct DirectionalLight *Light)
 {
-  dc:	fc 01       	movw	r30, r24
+  da:	fc 01       	movw	r30, r24
 	if (Light->EnableFlashing == TRUE)
-  de:	84 81       	ldd	r24, Z+4	; 0x04
-  e0:	81 30       	cpi	r24, 0x01	; 1
-  e2:	09 f0       	breq	.+2      	; 0xe6 <FlashingLed+0xa>
-  e4:	40 c0       	rjmp	.+128    	; 0x166 <FlashingLed+0x8a>
+  dc:	84 81       	ldd	r24, Z+4	; 0x04
+  de:	81 30       	cpi	r24, 0x01	; 1
+  e0:	09 f0       	breq	.+2      	; 0xe4 <FlashingLed+0xa>
+  e2:	40 c0       	rjmp	.+128    	; 0x164 <FlashingLed+0x8a>
 	{
 		if (Light->CounterFlashing < BLINK_INTERVAL)
-  e6:	20 81       	ld	r18, Z
-  e8:	23 30       	cpi	r18, 0x03	; 3
-  ea:	e8 f5       	brcc	.+122    	; 0x166 <FlashingLed+0x8a>
+  e4:	20 81       	ld	r18, Z
+  e6:	23 30       	cpi	r18, 0x03	; 3
+  e8:	e8 f5       	brcc	.+122    	; 0x164 <FlashingLed+0x8a>
 		{
 			Light->TimerCounterFlashing++;
-  ec:	81 81       	ldd	r24, Z+1	; 0x01
-  ee:	92 81       	ldd	r25, Z+2	; 0x02
-  f0:	01 96       	adiw	r24, 0x01	; 1
-  f2:	92 83       	std	Z+2, r25	; 0x02
-  f4:	81 83       	std	Z+1, r24	; 0x01
+  ea:	81 81       	ldd	r24, Z+1	; 0x01
+  ec:	92 81       	ldd	r25, Z+2	; 0x02
+  ee:	01 96       	adiw	r24, 0x01	; 1
+  f0:	92 83       	std	Z+2, r25	; 0x02
+  f2:	81 83       	std	Z+1, r24	; 0x01
 			
 			if (Light->StatusFlashing == BULB_ON)
-  f6:	33 81       	ldd	r19, Z+3	; 0x03
-  f8:	31 30       	cpi	r19, 0x01	; 1
-  fa:	b1 f4       	brne	.+44     	; 0x128 <FlashingLed+0x4c>
+  f4:	33 81       	ldd	r19, Z+3	; 0x03
+  f6:	31 30       	cpi	r19, 0x01	; 1
+  f8:	b1 f4       	brne	.+44     	; 0x126 <FlashingLed+0x4c>
 			{
 				if (Light->TimerCounterFlashing > TimeForFlashing)
-  fc:	20 91 60 00 	lds	r18, 0x0060	; 0x800060 <TimeForFlashing>
- 100:	30 91 61 00 	lds	r19, 0x0061	; 0x800061 <TimeForFlashing+0x1>
- 104:	28 17       	cp	r18, r24
- 106:	39 07       	cpc	r19, r25
- 108:	70 f5       	brcc	.+92     	; 0x166 <FlashingLed+0x8a>
+  fa:	20 91 60 00 	lds	r18, 0x0060	; 0x800060 <TimeForFlashing>
+  fe:	30 91 61 00 	lds	r19, 0x0061	; 0x800061 <TimeForFlashing+0x1>
+ 102:	28 17       	cp	r18, r24
+ 104:	39 07       	cpc	r19, r25
+ 106:	70 f5       	brcc	.+92     	; 0x164 <FlashingLed+0x8a>
 				{
 					Light->TimerCounterFlashing = 0;
- 10a:	12 82       	std	Z+2, r1	; 0x02
- 10c:	11 82       	std	Z+1, r1	; 0x01
+ 108:	12 82       	std	Z+2, r1	; 0x02
+ 10a:	11 82       	std	Z+1, r1	; 0x01
 					Light->StatusFlashing = BULB_OFF;
- 10e:	13 82       	std	Z+3, r1	; 0x03
+ 10c:	13 82       	std	Z+3, r1	; 0x03
 					PORTB |= (1 << Light->Led);		// Rele On
- 110:	28 b3       	in	r18, 0x18	; 24
- 112:	81 e0       	ldi	r24, 0x01	; 1
- 114:	90 e0       	ldi	r25, 0x00	; 0
- 116:	00 84       	ldd	r0, Z+8	; 0x08
- 118:	02 c0       	rjmp	.+4      	; 0x11e <FlashingLed+0x42>
- 11a:	88 0f       	add	r24, r24
- 11c:	99 1f       	adc	r25, r25
- 11e:	0a 94       	dec	r0
- 120:	e2 f7       	brpl	.-8      	; 0x11a <FlashingLed+0x3e>
- 122:	82 2b       	or	r24, r18
- 124:	88 bb       	out	0x18, r24	; 24
+ 10e:	28 b3       	in	r18, 0x18	; 24
+ 110:	81 e0       	ldi	r24, 0x01	; 1
+ 112:	90 e0       	ldi	r25, 0x00	; 0
+ 114:	00 84       	ldd	r0, Z+8	; 0x08
+ 116:	02 c0       	rjmp	.+4      	; 0x11c <FlashingLed+0x42>
+ 118:	88 0f       	add	r24, r24
+ 11a:	99 1f       	adc	r25, r25
+ 11c:	0a 94       	dec	r0
+ 11e:	e2 f7       	brpl	.-8      	; 0x118 <FlashingLed+0x3e>
+ 120:	82 2b       	or	r24, r18
+ 122:	88 bb       	out	0x18, r24	; 24
 					return;
- 126:	08 95       	ret
+ 124:	08 95       	ret
 				}
 			}
 			
 			if (Light->StatusFlashing == BULB_OFF)
- 128:	31 11       	cpse	r19, r1
- 12a:	1d c0       	rjmp	.+58     	; 0x166 <FlashingLed+0x8a>
+ 126:	31 11       	cpse	r19, r1
+ 128:	1d c0       	rjmp	.+58     	; 0x164 <FlashingLed+0x8a>
 			{
 				if (Light->TimerCounterFlashing > TimeForFlashing)
- 12c:	40 91 60 00 	lds	r20, 0x0060	; 0x800060 <TimeForFlashing>
- 130:	50 91 61 00 	lds	r21, 0x0061	; 0x800061 <TimeForFlashing+0x1>
- 134:	48 17       	cp	r20, r24
- 136:	59 07       	cpc	r21, r25
- 138:	b0 f4       	brcc	.+44     	; 0x166 <FlashingLed+0x8a>
+ 12a:	40 91 60 00 	lds	r20, 0x0060	; 0x800060 <TimeForFlashing>
+ 12e:	50 91 61 00 	lds	r21, 0x0061	; 0x800061 <TimeForFlashing+0x1>
+ 132:	48 17       	cp	r20, r24
+ 134:	59 07       	cpc	r21, r25
+ 136:	b0 f4       	brcc	.+44     	; 0x164 <FlashingLed+0x8a>
 				{
 					Light->TimerCounterFlashing = 0;
- 13a:	12 82       	std	Z+2, r1	; 0x02
- 13c:	11 82       	std	Z+1, r1	; 0x01
+ 138:	12 82       	std	Z+2, r1	; 0x02
+ 13a:	11 82       	std	Z+1, r1	; 0x01
 					Light->StatusFlashing = BULB_ON;
- 13e:	81 e0       	ldi	r24, 0x01	; 1
- 140:	83 83       	std	Z+3, r24	; 0x03
+ 13c:	81 e0       	ldi	r24, 0x01	; 1
+ 13e:	83 83       	std	Z+3, r24	; 0x03
 					Light->CounterFlashing++;
- 142:	2f 5f       	subi	r18, 0xFF	; 255
- 144:	20 83       	st	Z, r18
+ 140:	2f 5f       	subi	r18, 0xFF	; 255
+ 142:	20 83       	st	Z, r18
 					
 					if (Light->CounterFlashing == BLINK_INTERVAL)
- 146:	23 30       	cpi	r18, 0x03	; 3
- 148:	11 f4       	brne	.+4      	; 0x14e <FlashingLed+0x72>
+ 144:	23 30       	cpi	r18, 0x03	; 3
+ 146:	11 f4       	brne	.+4      	; 0x14c <FlashingLed+0x72>
 					{
 						Light->EnableFlashing = FALSE;
- 14a:	14 82       	std	Z+4, r1	; 0x04
+ 148:	14 82       	std	Z+4, r1	; 0x04
 						Light->CounterFlashing = 0;
- 14c:	10 82       	st	Z, r1
+ 14a:	10 82       	st	Z, r1
 					}
 					
 					PORTB &= ~(1 << Light->Led);   // Rele Offf
- 14e:	28 b3       	in	r18, 0x18	; 24
- 150:	81 e0       	ldi	r24, 0x01	; 1
- 152:	90 e0       	ldi	r25, 0x00	; 0
- 154:	00 84       	ldd	r0, Z+8	; 0x08
- 156:	02 c0       	rjmp	.+4      	; 0x15c <FlashingLed+0x80>
- 158:	88 0f       	add	r24, r24
- 15a:	99 1f       	adc	r25, r25
- 15c:	0a 94       	dec	r0
- 15e:	e2 f7       	brpl	.-8      	; 0x158 <FlashingLed+0x7c>
- 160:	80 95       	com	r24
- 162:	82 23       	and	r24, r18
- 164:	88 bb       	out	0x18, r24	; 24
- 166:	08 95       	ret
+ 14c:	28 b3       	in	r18, 0x18	; 24
+ 14e:	81 e0       	ldi	r24, 0x01	; 1
+ 150:	90 e0       	ldi	r25, 0x00	; 0
+ 152:	00 84       	ldd	r0, Z+8	; 0x08
+ 154:	02 c0       	rjmp	.+4      	; 0x15a <FlashingLed+0x80>
+ 156:	88 0f       	add	r24, r24
+ 158:	99 1f       	adc	r25, r25
+ 15a:	0a 94       	dec	r0
+ 15c:	e2 f7       	brpl	.-8      	; 0x156 <FlashingLed+0x7c>
+ 15e:	80 95       	com	r24
+ 160:	82 23       	and	r24, r18
+ 162:	88 bb       	out	0x18, r24	; 24
+ 164:	08 95       	ret
 
-00000168 <Flashing>:
+00000166 <Flashing>:
  *  @param void
  *  @return void
 */
 void Flashing(void)
 {
 	FlashingLed(&DirectionalLightLeft);
- 168:	8e e6       	ldi	r24, 0x6E	; 110
- 16a:	90 e0       	ldi	r25, 0x00	; 0
- 16c:	b7 df       	rcall	.-146    	; 0xdc <FlashingLed>
+ 166:	8e e6       	ldi	r24, 0x6E	; 110
+ 168:	90 e0       	ldi	r25, 0x00	; 0
+ 16a:	b7 df       	rcall	.-146    	; 0xda <FlashingLed>
 	FlashingLed(&DirectionalLightRight);
- 16e:	84 e6       	ldi	r24, 0x64	; 100
- 170:	90 e0       	ldi	r25, 0x00	; 0
- 172:	b4 df       	rcall	.-152    	; 0xdc <FlashingLed>
- 174:	08 95       	ret
+ 16c:	84 e6       	ldi	r24, 0x64	; 100
+ 16e:	90 e0       	ldi	r25, 0x00	; 0
+ 170:	b4 df       	rcall	.-152    	; 0xda <FlashingLed>
+ 172:	08 95       	ret
 
-00000176 <CheckInput>:
+00000174 <CheckInput>:
+ *  Function for check specific input for actiovation trippling
  *
  *  @param Light - struct with configuration for specific input
  *  @return void
 */
-void CheckInput(struct DirectionalLight *Button)
-{
- 176:	fc 01       	movw	r30, r24
+void CheckInput(struct DirectionalLight *Button) {
+ 174:	fc 01       	movw	r30, r24
 	// Check Left
-	if (!(PINB & (1 << Button->Button)))
- 178:	26 b3       	in	r18, 0x16	; 22
- 17a:	30 e0       	ldi	r19, 0x00	; 0
- 17c:	01 84       	ldd	r0, Z+9	; 0x09
- 17e:	02 c0       	rjmp	.+4      	; 0x184 <CheckInput+0xe>
- 180:	35 95       	asr	r19
- 182:	27 95       	ror	r18
- 184:	0a 94       	dec	r0
- 186:	e2 f7       	brpl	.-8      	; 0x180 <CheckInput+0xa>
- 188:	20 fd       	sbrc	r18, 0
- 18a:	08 c0       	rjmp	.+16     	; 0x19c <CheckInput+0x26>
-	{
+	if (!(PINB & (1 << Button->Button))) {
+ 176:	26 b3       	in	r18, 0x16	; 22
+ 178:	30 e0       	ldi	r19, 0x00	; 0
+ 17a:	01 84       	ldd	r0, Z+9	; 0x09
+ 17c:	02 c0       	rjmp	.+4      	; 0x182 <CheckInput+0xe>
+ 17e:	35 95       	asr	r19
+ 180:	27 95       	ror	r18
+ 182:	0a 94       	dec	r0
+ 184:	e2 f7       	brpl	.-8      	; 0x17e <CheckInput+0xa>
+ 186:	20 fd       	sbrc	r18, 0
+ 188:	08 c0       	rjmp	.+16     	; 0x19a <CheckInput+0x26>
 		Button->StartTimerCounterUp = TRUE;
- 18c:	81 e0       	ldi	r24, 0x01	; 1
- 18e:	87 83       	std	Z+7, r24	; 0x07
+ 18a:	81 e0       	ldi	r24, 0x01	; 1
+ 18c:	87 83       	std	Z+7, r24	; 0x07
 		Button->TimeCountUp++;
- 190:	85 81       	ldd	r24, Z+5	; 0x05
- 192:	96 81       	ldd	r25, Z+6	; 0x06
- 194:	01 96       	adiw	r24, 0x01	; 1
- 196:	96 83       	std	Z+6, r25	; 0x06
- 198:	85 83       	std	Z+5, r24	; 0x05
- 19a:	08 95       	ret
+ 18e:	85 81       	ldd	r24, Z+5	; 0x05
+ 190:	96 81       	ldd	r25, Z+6	; 0x06
+ 192:	01 96       	adiw	r24, 0x01	; 1
+ 194:	96 83       	std	Z+6, r25	; 0x06
+ 196:	85 83       	std	Z+5, r24	; 0x05
+ 198:	08 95       	ret
 	}
-	else
-	{
+	else {
 		Button->StartTimerCounterUp = FALSE;
- 19c:	17 82       	std	Z+7, r1	; 0x07
+ 19a:	17 82       	std	Z+7, r1	; 0x07
+		//Button->TimeCountUp = 0;
 	}
 	
-	if ((Button->EnableFlashing == FALSE) && (Button->StartTimerCounterUp == FALSE))
- 19e:	84 81       	ldd	r24, Z+4	; 0x04
- 1a0:	88 23       	and	r24, r24
- 1a2:	89 f0       	breq	.+34     	; 0x1c6 <CheckInput+0x50>
- 1a4:	08 95       	ret
-	{
-		if ((Button->TimeCountUp > 0) && (Button->TimeCountUp < TimeForEnableAutoFlashing))
- 1a6:	20 91 62 00 	lds	r18, 0x0062	; 0x800062 <TimeForEnableAutoFlashing>
- 1aa:	30 91 63 00 	lds	r19, 0x0063	; 0x800063 <TimeForEnableAutoFlashing+0x1>
- 1ae:	82 17       	cp	r24, r18
- 1b0:	93 07       	cpc	r25, r19
- 1b2:	68 f4       	brcc	.+26     	; 0x1ce <CheckInput+0x58>
-		{
+	if ((Button->EnableFlashing == FALSE) && (Button->StartTimerCounterUp == FALSE)) {
+ 19c:	84 81       	ldd	r24, Z+4	; 0x04
+ 19e:	88 23       	and	r24, r24
+ 1a0:	b9 f0       	breq	.+46     	; 0x1d0 <CheckInput+0x5c>
+ 1a2:	08 95       	ret
+		if ((Button->TimeCountUp > 0) && (Button->TimeCountUp < TimeForEnableAutoFlashing)) {
+ 1a4:	20 91 62 00 	lds	r18, 0x0062	; 0x800062 <TimeForEnableAutoFlashing>
+ 1a8:	30 91 63 00 	lds	r19, 0x0063	; 0x800063 <TimeForEnableAutoFlashing+0x1>
+ 1ac:	82 17       	cp	r24, r18
+ 1ae:	93 07       	cpc	r25, r19
+ 1b0:	48 f4       	brcc	.+18     	; 0x1c4 <CheckInput+0x50>
 			Button->EnableFlashing = TRUE;
- 1b4:	81 e0       	ldi	r24, 0x01	; 1
- 1b6:	84 83       	std	Z+4, r24	; 0x04
+ 1b2:	81 e0       	ldi	r24, 0x01	; 1
+ 1b4:	84 83       	std	Z+4, r24	; 0x04
 			Button->StatusFlashing = BULB_ON;
- 1b8:	83 83       	std	Z+3, r24	; 0x03
+ 1b6:	83 83       	std	Z+3, r24	; 0x03
 			Button->TimeCountUp = 0;
- 1ba:	16 82       	std	Z+6, r1	; 0x06
- 1bc:	15 82       	std	Z+5, r1	; 0x05
+ 1b8:	16 82       	std	Z+6, r1	; 0x06
+ 1ba:	15 82       	std	Z+5, r1	; 0x05
 			Button->CounterFlashing = 0;
- 1be:	10 82       	st	Z, r1
+ 1bc:	10 82       	st	Z, r1
 			Button->TimerCounterFlashing = 0;
- 1c0:	12 82       	std	Z+2, r1	; 0x02
- 1c2:	11 82       	std	Z+1, r1	; 0x01
+ 1be:	12 82       	std	Z+2, r1	; 0x02
+ 1c0:	11 82       	std	Z+1, r1	; 0x01
+ 1c2:	08 95       	ret
+		} else {
+			if (Button->TimeCountUp > TimeForEnableAutoFlashing) {
+ 1c4:	28 17       	cp	r18, r24
+ 1c6:	39 07       	cpc	r19, r25
+ 1c8:	38 f4       	brcc	.+14     	; 0x1d8 <CheckInput+0x64>
+				Button->TimeCountUp = 0;
+ 1ca:	16 82       	std	Z+6, r1	; 0x06
+ 1cc:	15 82       	std	Z+5, r1	; 0x05
+			}
 		}
 	}
 }
- 1c4:	08 95       	ret
+ 1ce:	08 95       	ret
 		Button->StartTimerCounterUp = FALSE;
+		//Button->TimeCountUp = 0;
 	}
 	
-	if ((Button->EnableFlashing == FALSE) && (Button->StartTimerCounterUp == FALSE))
-	{
-		if ((Button->TimeCountUp > 0) && (Button->TimeCountUp < TimeForEnableAutoFlashing))
- 1c6:	85 81       	ldd	r24, Z+5	; 0x05
- 1c8:	96 81       	ldd	r25, Z+6	; 0x06
- 1ca:	00 97       	sbiw	r24, 0x00	; 0
- 1cc:	61 f7       	brne	.-40     	; 0x1a6 <CheckInput+0x30>
- 1ce:	08 95       	ret
+	if ((Button->EnableFlashing == FALSE) && (Button->StartTimerCounterUp == FALSE)) {
+		if ((Button->TimeCountUp > 0) && (Button->TimeCountUp < TimeForEnableAutoFlashing)) {
+ 1d0:	85 81       	ldd	r24, Z+5	; 0x05
+ 1d2:	96 81       	ldd	r25, Z+6	; 0x06
+ 1d4:	00 97       	sbiw	r24, 0x00	; 0
+ 1d6:	31 f7       	brne	.-52     	; 0x1a4 <CheckInput+0x30>
+ 1d8:	08 95       	ret
 
-000001d0 <SafetyCheck>:
+000001da <SafetyCheck>:
 							 FALSE - safety disable is not activate
 */
 uint8_t SafetyCheck(void)
 {
 	/* Safety disable Right bulb */
 	if (!(PINB & (1 << INPUT_LEFT)))
- 1d0:	b2 99       	sbic	0x16, 2	; 22
- 1d2:	0e c0       	rjmp	.+28     	; 0x1f0 <SafetyCheck+0x20>
+ 1da:	b4 99       	sbic	0x16, 4	; 22
+ 1dc:	0e c0       	rjmp	.+28     	; 0x1fa <SafetyCheck+0x20>
 	{
 		if (DirectionalLightRight.EnableFlashing == TRUE)
- 1d4:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <DirectionalLightRight+0x4>
- 1d8:	81 30       	cpi	r24, 0x01	; 1
- 1da:	51 f4       	brne	.+20     	; 0x1f0 <SafetyCheck+0x20>
+ 1de:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <DirectionalLightRight+0x4>
+ 1e2:	81 30       	cpi	r24, 0x01	; 1
+ 1e4:	51 f4       	brne	.+20     	; 0x1fa <SafetyCheck+0x20>
 		{
 			DirectionalLightRight.TimerCounterFlashing = 0;
- 1dc:	e4 e6       	ldi	r30, 0x64	; 100
- 1de:	f0 e0       	ldi	r31, 0x00	; 0
- 1e0:	12 82       	std	Z+2, r1	; 0x02
- 1e2:	11 82       	std	Z+1, r1	; 0x01
+ 1e6:	e4 e6       	ldi	r30, 0x64	; 100
+ 1e8:	f0 e0       	ldi	r31, 0x00	; 0
+ 1ea:	12 82       	std	Z+2, r1	; 0x02
+ 1ec:	11 82       	std	Z+1, r1	; 0x01
 			DirectionalLightRight.StatusFlashing = BULB_ON;
- 1e4:	91 e0       	ldi	r25, 0x01	; 1
- 1e6:	93 83       	std	Z+3, r25	; 0x03
+ 1ee:	91 e0       	ldi	r25, 0x01	; 1
+ 1f0:	93 83       	std	Z+3, r25	; 0x03
 			DirectionalLightRight.EnableFlashing = FALSE;
- 1e8:	14 82       	std	Z+4, r1	; 0x04
+ 1f2:	14 82       	std	Z+4, r1	; 0x04
 			DirectionalLightRight.CounterFlashing = 0;
- 1ea:	10 82       	st	Z, r1
+ 1f4:	10 82       	st	Z, r1
 			PORTB &= ~(1 << RELE_RIGHT);   // Rele Offf
- 1ec:	c4 98       	cbi	0x18, 4	; 24
+ 1f6:	c1 98       	cbi	0x18, 1	; 24
 			return TRUE;
- 1ee:	08 95       	ret
+ 1f8:	08 95       	ret
 		}
 	}
 	
 	/* Safety disable Left bulb */
 	if (!(PINB & (1 << INPUT_RIGHT)))
- 1f0:	96 b3       	in	r25, 0x16	; 22
- 1f2:	89 2f       	mov	r24, r25
- 1f4:	82 70       	andi	r24, 0x02	; 2
- 1f6:	91 fd       	sbrc	r25, 1
- 1f8:	0f c0       	rjmp	.+30     	; 0x218 <SafetyCheck+0x48>
+ 1fa:	96 b3       	in	r25, 0x16	; 22
+ 1fc:	89 2f       	mov	r24, r25
+ 1fe:	88 70       	andi	r24, 0x08	; 8
+ 200:	93 fd       	sbrc	r25, 3
+ 202:	0f c0       	rjmp	.+30     	; 0x222 <SafetyCheck+0x48>
 	{
 		if (DirectionalLightLeft.EnableFlashing == TRUE)
- 1fa:	90 91 72 00 	lds	r25, 0x0072	; 0x800072 <DirectionalLightLeft+0x4>
- 1fe:	91 30       	cpi	r25, 0x01	; 1
- 200:	61 f4       	brne	.+24     	; 0x21a <SafetyCheck+0x4a>
+ 204:	90 91 72 00 	lds	r25, 0x0072	; 0x800072 <DirectionalLightLeft+0x4>
+ 208:	91 30       	cpi	r25, 0x01	; 1
+ 20a:	61 f4       	brne	.+24     	; 0x224 <SafetyCheck+0x4a>
 		{
 			DirectionalLightLeft.TimerCounterFlashing = 0;
- 202:	ee e6       	ldi	r30, 0x6E	; 110
- 204:	f0 e0       	ldi	r31, 0x00	; 0
- 206:	12 82       	std	Z+2, r1	; 0x02
- 208:	11 82       	std	Z+1, r1	; 0x01
+ 20c:	ee e6       	ldi	r30, 0x6E	; 110
+ 20e:	f0 e0       	ldi	r31, 0x00	; 0
+ 210:	12 82       	std	Z+2, r1	; 0x02
+ 212:	11 82       	std	Z+1, r1	; 0x01
 			DirectionalLightLeft.StatusFlashing = BULB_ON;
- 20a:	81 e0       	ldi	r24, 0x01	; 1
- 20c:	83 83       	std	Z+3, r24	; 0x03
+ 214:	81 e0       	ldi	r24, 0x01	; 1
+ 216:	83 83       	std	Z+3, r24	; 0x03
 			DirectionalLightLeft.EnableFlashing = FALSE;
- 20e:	14 82       	std	Z+4, r1	; 0x04
+ 218:	14 82       	std	Z+4, r1	; 0x04
 			DirectionalLightLeft.CounterFlashing = 0;
- 210:	10 82       	st	Z, r1
+ 21a:	10 82       	st	Z, r1
 			PORTB &= ~(1 << RELE_LEFT);   // Rele Offf
- 212:	c3 98       	cbi	0x18, 3	; 24
+ 21c:	c2 98       	cbi	0x18, 2	; 24
 			return TRUE;
- 214:	89 2f       	mov	r24, r25
- 216:	08 95       	ret
+ 21e:	89 2f       	mov	r24, r25
+ 220:	08 95       	ret
 		}
 	}
 	
 	return FALSE;
- 218:	80 e0       	ldi	r24, 0x00	; 0
+ 222:	80 e0       	ldi	r24, 0x00	; 0
 }
- 21a:	08 95       	ret
+ 224:	08 95       	ret
 
-0000021c <CheckButton>:
+00000226 <CheckButton>:
  *  @param void
  *  @return void
 */
 void CheckButton(void)
 {
 	if (SafetyCheck() == FALSE)
- 21c:	d9 df       	rcall	.-78     	; 0x1d0 <SafetyCheck>
- 21e:	81 11       	cpse	r24, r1
- 220:	06 c0       	rjmp	.+12     	; 0x22e <CheckButton+0x12>
+ 226:	d9 df       	rcall	.-78     	; 0x1da <SafetyCheck>
+ 228:	81 11       	cpse	r24, r1
+ 22a:	06 c0       	rjmp	.+12     	; 0x238 <CheckButton+0x12>
 	{
 		CheckInput(&DirectionalLightLeft);
- 222:	8e e6       	ldi	r24, 0x6E	; 110
- 224:	90 e0       	ldi	r25, 0x00	; 0
- 226:	a7 df       	rcall	.-178    	; 0x176 <CheckInput>
+ 22c:	8e e6       	ldi	r24, 0x6E	; 110
+ 22e:	90 e0       	ldi	r25, 0x00	; 0
+ 230:	a1 df       	rcall	.-190    	; 0x174 <CheckInput>
 		CheckInput(&DirectionalLightRight);
- 228:	84 e6       	ldi	r24, 0x64	; 100
- 22a:	90 e0       	ldi	r25, 0x00	; 0
- 22c:	a4 df       	rcall	.-184    	; 0x176 <CheckInput>
- 22e:	08 95       	ret
+ 232:	84 e6       	ldi	r24, 0x64	; 100
+ 234:	90 e0       	ldi	r25, 0x00	; 0
+ 236:	9e df       	rcall	.-196    	; 0x174 <CheckInput>
+ 238:	08 95       	ret
 
-00000230 <WriteTime>:
+0000023a <WriteTime>:
  *  @param CycleTime - Value for write to EEPROM
  *  @return void
 */
 void WriteTime(uint16_t CycleTime)
 {
 	eeprom_write_word(EEPROM_TIME_FLASHING, CycleTime);
- 230:	bc 01       	movw	r22, r24
- 232:	80 e0       	ldi	r24, 0x00	; 0
- 234:	90 e0       	ldi	r25, 0x00	; 0
- 236:	33 d0       	rcall	.+102    	; 0x29e <eeprom_write_word>
- 238:	08 95       	ret
+ 23a:	bc 01       	movw	r22, r24
+ 23c:	80 e0       	ldi	r24, 0x00	; 0
+ 23e:	90 e0       	ldi	r25, 0x00	; 0
+ 240:	26 d0       	rcall	.+76     	; 0x28e <eeprom_write_word>
+ 242:	08 95       	ret
 
-0000023a <CheckSetButton>:
+00000244 <CheckSetButton>:
  *  @param void
  *  @return void
 */
 void CheckSetButton()
 {
 	if (!(PINB & (1 << INPUT_SET_BUTTON)))
- 23a:	b0 99       	sbic	0x16, 0	; 22
- 23c:	22 c0       	rjmp	.+68     	; 0x282 <__stack+0x23>
+ 244:	b0 99       	sbic	0x16, 0	; 22
+ 246:	22 c0       	rjmp	.+68     	; 0x28c <__stack+0x2d>
 	{
 		uint8_t InitialStatus = (PINB & (1 << INPUT_LEFT));
- 23e:	46 b3       	in	r20, 0x16	; 22
- 240:	44 70       	andi	r20, 0x04	; 4
+ 248:	46 b3       	in	r20, 0x16	; 22
+ 24a:	40 71       	andi	r20, 0x10	; 16
 		uint16_t BulbStatusCycle = 0;
 		uint8_t StartCounter = FALSE;
- 242:	60 e0       	ldi	r22, 0x00	; 0
+ 24c:	60 e0       	ldi	r22, 0x00	; 0
 void CheckSetButton()
 {
 	if (!(PINB & (1 << INPUT_SET_BUTTON)))
 	{
 		uint8_t InitialStatus = (PINB & (1 << INPUT_LEFT));
 		uint16_t BulbStatusCycle = 0;
- 244:	80 e0       	ldi	r24, 0x00	; 0
- 246:	90 e0       	ldi	r25, 0x00	; 0
+ 24e:	80 e0       	ldi	r24, 0x00	; 0
+ 250:	90 e0       	ldi	r25, 0x00	; 0
 		uint8_t StartCounter = FALSE;
 	
 		while (1)
 		{
 			if (InitialStatus != (PINB & (1 << INPUT_LEFT))) 
- 248:	50 e0       	ldi	r21, 0x00	; 0
- 24a:	71 e0       	ldi	r23, 0x01	; 1
- 24c:	01 c0       	rjmp	.+2      	; 0x250 <CheckSetButton+0x16>
- 24e:	67 2f       	mov	r22, r23
- 250:	26 b3       	in	r18, 0x16	; 22
- 252:	24 70       	andi	r18, 0x04	; 4
- 254:	30 e0       	ldi	r19, 0x00	; 0
- 256:	42 17       	cp	r20, r18
- 258:	53 07       	cpc	r21, r19
- 25a:	41 f0       	breq	.+16     	; 0x26c <__stack+0xd>
+ 252:	50 e0       	ldi	r21, 0x00	; 0
+ 254:	71 e0       	ldi	r23, 0x01	; 1
+ 256:	01 c0       	rjmp	.+2      	; 0x25a <CheckSetButton+0x16>
+ 258:	67 2f       	mov	r22, r23
+ 25a:	26 b3       	in	r18, 0x16	; 22
+ 25c:	20 71       	andi	r18, 0x10	; 16
+ 25e:	30 e0       	ldi	r19, 0x00	; 0
+ 260:	42 17       	cp	r20, r18
+ 262:	53 07       	cpc	r21, r19
+ 264:	41 f0       	breq	.+16     	; 0x276 <__stack+0x17>
 			{
 				BulbStatusCycle++;
- 25c:	01 96       	adiw	r24, 0x01	; 1
- 25e:	ef e0       	ldi	r30, 0x0F	; 15
- 260:	f7 e2       	ldi	r31, 0x27	; 39
- 262:	31 97       	sbiw	r30, 0x01	; 1
- 264:	f1 f7       	brne	.-4      	; 0x262 <__stack+0x3>
- 266:	00 c0       	rjmp	.+0      	; 0x268 <__stack+0x9>
- 268:	00 00       	nop
- 26a:	02 c0       	rjmp	.+4      	; 0x270 <__stack+0x11>
+ 266:	01 96       	adiw	r24, 0x01	; 1
+ 268:	ef e0       	ldi	r30, 0x0F	; 15
+ 26a:	f7 e2       	ldi	r31, 0x27	; 39
+ 26c:	31 97       	sbiw	r30, 0x01	; 1
+ 26e:	f1 f7       	brne	.-4      	; 0x26c <__stack+0xd>
+ 270:	00 c0       	rjmp	.+0      	; 0x272 <__stack+0x13>
+ 272:	00 00       	nop
+ 274:	02 c0       	rjmp	.+4      	; 0x27a <__stack+0x1b>
 				StartCounter = TRUE;
 				_delay_ms(REFRESH_TIME);
 			}
 			
 			if ((StartCounter == TRUE) && (InitialStatus == (PINB & (1 << INPUT_LEFT))))
- 26c:	61 30       	cpi	r22, 0x01	; 1
- 26e:	81 f7       	brne	.-32     	; 0x250 <CheckSetButton+0x16>
- 270:	26 b3       	in	r18, 0x16	; 22
- 272:	24 70       	andi	r18, 0x04	; 4
- 274:	30 e0       	ldi	r19, 0x00	; 0
- 276:	42 17       	cp	r20, r18
- 278:	53 07       	cpc	r21, r19
- 27a:	49 f7       	brne	.-46     	; 0x24e <CheckSetButton+0x14>
+ 276:	61 30       	cpi	r22, 0x01	; 1
+ 278:	81 f7       	brne	.-32     	; 0x25a <CheckSetButton+0x16>
+ 27a:	26 b3       	in	r18, 0x16	; 22
+ 27c:	20 71       	andi	r18, 0x10	; 16
+ 27e:	30 e0       	ldi	r19, 0x00	; 0
+ 280:	42 17       	cp	r20, r18
+ 282:	53 07       	cpc	r21, r19
+ 284:	49 f7       	brne	.-46     	; 0x258 <CheckSetButton+0x14>
 			{
 				WriteTime(BulbStatusCycle);
- 27c:	d9 df       	rcall	.-78     	; 0x230 <WriteTime>
+ 286:	d9 df       	rcall	.-78     	; 0x23a <WriteTime>
 				while(1)
 				{
 					wdt_reset();
- 27e:	a8 95       	wdr
- 280:	fe cf       	rjmp	.-4      	; 0x27e <__stack+0x1f>
- 282:	08 95       	ret
+ 288:	a8 95       	wdr
+ 28a:	fe cf       	rjmp	.-4      	; 0x288 <__stack+0x29>
+ 28c:	08 95       	ret
 
-00000284 <ReadTime>:
- *  @param void
- *  @return void
-*/
-void ReadTime(void)
-{
-	TimeForFlashing = eeprom_read_word(EEPROM_TIME_FLASHING);
- 284:	80 e0       	ldi	r24, 0x00	; 0
- 286:	90 e0       	ldi	r25, 0x00	; 0
- 288:	05 d0       	rcall	.+10     	; 0x294 <eeprom_read_word>
- 28a:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <TimeForFlashing+0x1>
- 28e:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <TimeForFlashing>
- 292:	08 95       	ret
+0000028e <eeprom_write_word>:
+ 28e:	02 d0       	rcall	.+4      	; 0x294 <eeprom_write_byte>
+ 290:	27 2f       	mov	r18, r23
+ 292:	01 c0       	rjmp	.+2      	; 0x296 <eeprom_write_r18>
 
-00000294 <eeprom_read_word>:
- 294:	a8 e1       	ldi	r26, 0x18	; 24
- 296:	b0 e0       	ldi	r27, 0x00	; 0
- 298:	42 e0       	ldi	r20, 0x02	; 2
- 29a:	50 e0       	ldi	r21, 0x00	; 0
- 29c:	05 c0       	rjmp	.+10     	; 0x2a8 <eeprom_read_blraw>
+00000294 <eeprom_write_byte>:
+ 294:	26 2f       	mov	r18, r22
 
-0000029e <eeprom_write_word>:
- 29e:	12 d0       	rcall	.+36     	; 0x2c4 <eeprom_write_byte>
- 2a0:	27 2f       	mov	r18, r23
- 2a2:	11 c0       	rjmp	.+34     	; 0x2c6 <eeprom_write_r18>
+00000296 <eeprom_write_r18>:
+ 296:	e1 99       	sbic	0x1c, 1	; 28
+ 298:	fe cf       	rjmp	.-4      	; 0x296 <eeprom_write_r18>
+ 29a:	1c ba       	out	0x1c, r1	; 28
+ 29c:	9f bb       	out	0x1f, r25	; 31
+ 29e:	8e bb       	out	0x1e, r24	; 30
+ 2a0:	2d bb       	out	0x1d, r18	; 29
+ 2a2:	0f b6       	in	r0, 0x3f	; 63
+ 2a4:	f8 94       	cli
+ 2a6:	e2 9a       	sbi	0x1c, 2	; 28
+ 2a8:	e1 9a       	sbi	0x1c, 1	; 28
+ 2aa:	0f be       	out	0x3f, r0	; 63
+ 2ac:	01 96       	adiw	r24, 0x01	; 1
+ 2ae:	08 95       	ret
 
-000002a4 <eeprom_read_block>:
- 2a4:	dc 01       	movw	r26, r24
- 2a6:	cb 01       	movw	r24, r22
+000002b0 <_exit>:
+ 2b0:	f8 94       	cli
 
-000002a8 <eeprom_read_blraw>:
- 2a8:	fc 01       	movw	r30, r24
- 2aa:	e1 99       	sbic	0x1c, 1	; 28
- 2ac:	fe cf       	rjmp	.-4      	; 0x2aa <eeprom_read_blraw+0x2>
- 2ae:	06 c0       	rjmp	.+12     	; 0x2bc <eeprom_read_blraw+0x14>
- 2b0:	ff bb       	out	0x1f, r31	; 31
- 2b2:	ee bb       	out	0x1e, r30	; 30
- 2b4:	e0 9a       	sbi	0x1c, 0	; 28
- 2b6:	31 96       	adiw	r30, 0x01	; 1
- 2b8:	0d b2       	in	r0, 0x1d	; 29
- 2ba:	0d 92       	st	X+, r0
- 2bc:	41 50       	subi	r20, 0x01	; 1
- 2be:	50 40       	sbci	r21, 0x00	; 0
- 2c0:	b8 f7       	brcc	.-18     	; 0x2b0 <eeprom_read_blraw+0x8>
- 2c2:	08 95       	ret
-
-000002c4 <eeprom_write_byte>:
- 2c4:	26 2f       	mov	r18, r22
-
-000002c6 <eeprom_write_r18>:
- 2c6:	e1 99       	sbic	0x1c, 1	; 28
- 2c8:	fe cf       	rjmp	.-4      	; 0x2c6 <eeprom_write_r18>
- 2ca:	1c ba       	out	0x1c, r1	; 28
- 2cc:	9f bb       	out	0x1f, r25	; 31
- 2ce:	8e bb       	out	0x1e, r24	; 30
- 2d0:	2d bb       	out	0x1d, r18	; 29
- 2d2:	0f b6       	in	r0, 0x3f	; 63
- 2d4:	f8 94       	cli
- 2d6:	e2 9a       	sbi	0x1c, 2	; 28
- 2d8:	e1 9a       	sbi	0x1c, 1	; 28
- 2da:	0f be       	out	0x3f, r0	; 63
- 2dc:	01 96       	adiw	r24, 0x01	; 1
- 2de:	08 95       	ret
-
-000002e0 <_exit>:
- 2e0:	f8 94       	cli
-
-000002e2 <__stop_program>:
- 2e2:	ff cf       	rjmp	.-2      	; 0x2e2 <__stop_program>
+000002b2 <__stop_program>:
+ 2b2:	ff cf       	rjmp	.-2      	; 0x2b2 <__stop_program>

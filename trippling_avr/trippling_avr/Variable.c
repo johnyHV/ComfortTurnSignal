@@ -14,5 +14,5 @@
 struct DirectionalLight DirectionalLightLeft= {0, 0, BULB_OFF, FALSE, 0, 0, RELE_LEFT, INPUT_LEFT};
 struct DirectionalLight DirectionalLightRight = {0, 0, BULB_OFF, FALSE, 0, 0, RELE_RIGHT, INPUT_RIGHT};
 
-uint16_t TimeForEnableAutoFlashing = 200/REFRESH_TIME;
+uint16_t TimeForEnableAutoFlashing = 400/REFRESH_TIME;
 uint16_t TimeForFlashing = 500/REFRESH_TIME;

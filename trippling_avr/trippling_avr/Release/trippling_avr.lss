@@ -1,0 +1,431 @@
+
+trippling_avr.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000002f4  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000018  00800060  000002f4  00000368  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  00000380  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000003b0  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000080  00000000  00000000  000003f0  2**3
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000006cd  00000000  00000000  00000470  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000438  00000000  00000000  00000b3d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000002fc  00000000  00000000  00000f75  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    00000169  00000000  00000000  00001271  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0e c0       	rjmp	.+28     	; 0x1e <__ctors_end>
+   2:	20 c0       	rjmp	.+64     	; 0x44 <__bad_interrupt>
+   4:	5c c0       	rjmp	.+184    	; 0xbe <__vector_2>
+   6:	50 c0       	rjmp	.+160    	; 0xa8 <__vector_3>
+   8:	1d c0       	rjmp	.+58     	; 0x44 <__bad_interrupt>
+   a:	1c c0       	rjmp	.+56     	; 0x44 <__bad_interrupt>
+   c:	1b c0       	rjmp	.+54     	; 0x44 <__bad_interrupt>
+   e:	1a c0       	rjmp	.+52     	; 0x44 <__bad_interrupt>
+  10:	19 c0       	rjmp	.+50     	; 0x44 <__bad_interrupt>
+  12:	5f c0       	rjmp	.+190    	; 0xd2 <__vector_9>
+  14:	17 c0       	rjmp	.+46     	; 0x44 <__bad_interrupt>
+  16:	16 c0       	rjmp	.+44     	; 0x44 <__bad_interrupt>
+  18:	15 c0       	rjmp	.+42     	; 0x44 <__bad_interrupt>
+  1a:	14 c0       	rjmp	.+40     	; 0x44 <__bad_interrupt>
+  1c:	13 c0       	rjmp	.+38     	; 0x44 <__bad_interrupt>
+
+0000001e <__ctors_end>:
+  1e:	11 24       	eor	r1, r1
+  20:	1f be       	out	0x3f, r1	; 63
+  22:	cf e5       	ldi	r28, 0x5F	; 95
+  24:	d2 e0       	ldi	r29, 0x02	; 2
+  26:	de bf       	out	0x3e, r29	; 62
+  28:	cd bf       	out	0x3d, r28	; 61
+
+0000002a <__do_copy_data>:
+  2a:	10 e0       	ldi	r17, 0x00	; 0
+  2c:	a0 e6       	ldi	r26, 0x60	; 96
+  2e:	b0 e0       	ldi	r27, 0x00	; 0
+  30:	e4 ef       	ldi	r30, 0xF4	; 244
+  32:	f2 e0       	ldi	r31, 0x02	; 2
+  34:	02 c0       	rjmp	.+4      	; 0x3a <__do_copy_data+0x10>
+  36:	05 90       	lpm	r0, Z+
+  38:	0d 92       	st	X+, r0
+  3a:	a8 37       	cpi	r26, 0x78	; 120
+  3c:	b1 07       	cpc	r27, r17
+  3e:	d9 f7       	brne	.-10     	; 0x36 <__do_copy_data+0xc>
+  40:	0f d0       	rcall	.+30     	; 0x60 <main>
+  42:	56 c1       	rjmp	.+684    	; 0x2f0 <_exit>
+
+00000044 <__bad_interrupt>:
+  44:	dd cf       	rjmp	.-70     	; 0x0 <__vectors>
+
+00000046 <initGpioPin>:
+  46:	bb 9a       	sbi	0x17, 3	; 23
+  48:	c3 9a       	sbi	0x18, 3	; 24
+  4a:	c3 98       	cbi	0x18, 3	; 24
+  4c:	bc 9a       	sbi	0x17, 4	; 23
+  4e:	c4 9a       	sbi	0x18, 4	; 24
+  50:	c4 98       	cbi	0x18, 4	; 24
+  52:	ba 98       	cbi	0x17, 2	; 23
+  54:	c2 9a       	sbi	0x18, 2	; 24
+  56:	b9 98       	cbi	0x17, 1	; 23
+  58:	c1 9a       	sbi	0x18, 1	; 24
+  5a:	b8 98       	cbi	0x17, 0	; 23
+  5c:	c0 9a       	sbi	0x18, 0	; 24
+  5e:	08 95       	ret
+
+00000060 <main>:
+  60:	14 be       	out	0x34, r1	; 52
+  62:	0f b6       	in	r0, 0x3f	; 63
+  64:	f8 94       	cli
+  66:	a8 95       	wdr
+  68:	81 b5       	in	r24, 0x21	; 33
+  6a:	88 61       	ori	r24, 0x18	; 24
+  6c:	81 bd       	out	0x21, r24	; 33
+  6e:	11 bc       	out	0x21, r1	; 33
+  70:	0f be       	out	0x3f, r0	; 63
+  72:	e9 df       	rcall	.-46     	; 0x46 <initGpioPin>
+  74:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <TimeForFlashing>
+  78:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <TimeForFlashing+0x1>
+  7c:	e1 d0       	rcall	.+450    	; 0x240 <WriteTime>
+  7e:	0a d1       	rcall	.+532    	; 0x294 <ReadTime>
+  80:	e3 d0       	rcall	.+454    	; 0x248 <CheckSetButton>
+  82:	a8 95       	wdr
+  84:	9e e0       	ldi	r25, 0x0E	; 14
+  86:	88 e1       	ldi	r24, 0x18	; 24
+  88:	0f b6       	in	r0, 0x3f	; 63
+  8a:	f8 94       	cli
+  8c:	a8 95       	wdr
+  8e:	81 bd       	out	0x21, r24	; 33
+  90:	0f be       	out	0x3f, r0	; 63
+  92:	91 bd       	out	0x21, r25	; 33
+  94:	cb d0       	rcall	.+406    	; 0x22c <CheckButton>
+  96:	6c d0       	rcall	.+216    	; 0x170 <Flashing>
+  98:	8f e0       	ldi	r24, 0x0F	; 15
+  9a:	97 e2       	ldi	r25, 0x27	; 39
+  9c:	01 97       	sbiw	r24, 0x01	; 1
+  9e:	f1 f7       	brne	.-4      	; 0x9c <main+0x3c>
+  a0:	00 c0       	rjmp	.+0      	; 0xa2 <main+0x42>
+  a2:	00 00       	nop
+  a4:	a8 95       	wdr
+  a6:	f6 cf       	rjmp	.-20     	; 0x94 <main+0x34>
+
+000000a8 <__vector_3>:
+  a8:	1f 92       	push	r1
+  aa:	0f 92       	push	r0
+  ac:	0f b6       	in	r0, 0x3f	; 63
+  ae:	0f 92       	push	r0
+  b0:	11 24       	eor	r1, r1
+  b2:	1f bc       	out	0x2f, r1	; 47
+  b4:	0f 90       	pop	r0
+  b6:	0f be       	out	0x3f, r0	; 63
+  b8:	0f 90       	pop	r0
+  ba:	1f 90       	pop	r1
+  bc:	18 95       	reti
+
+000000be <__vector_2>:
+  be:	1f 92       	push	r1
+  c0:	0f 92       	push	r0
+  c2:	0f b6       	in	r0, 0x3f	; 63
+  c4:	0f 92       	push	r0
+  c6:	11 24       	eor	r1, r1
+  c8:	0f 90       	pop	r0
+  ca:	0f be       	out	0x3f, r0	; 63
+  cc:	0f 90       	pop	r0
+  ce:	1f 90       	pop	r1
+  d0:	18 95       	reti
+
+000000d2 <__vector_9>:
+  d2:	1f 92       	push	r1
+  d4:	0f 92       	push	r0
+  d6:	0f b6       	in	r0, 0x3f	; 63
+  d8:	0f 92       	push	r0
+  da:	11 24       	eor	r1, r1
+  dc:	0f 90       	pop	r0
+  de:	0f be       	out	0x3f, r0	; 63
+  e0:	0f 90       	pop	r0
+  e2:	1f 90       	pop	r1
+  e4:	18 95       	reti
+
+000000e6 <FlashingLed>:
+  e6:	fc 01       	movw	r30, r24
+  e8:	94 81       	ldd	r25, Z+4	; 0x04
+  ea:	91 30       	cpi	r25, 0x01	; 1
+  ec:	09 f0       	breq	.+2      	; 0xf0 <FlashingLed+0xa>
+  ee:	3f c0       	rjmp	.+126    	; 0x16e <FlashingLed+0x88>
+  f0:	80 81       	ld	r24, Z
+  f2:	83 30       	cpi	r24, 0x03	; 3
+  f4:	e0 f5       	brcc	.+120    	; 0x16e <FlashingLed+0x88>
+  f6:	21 81       	ldd	r18, Z+1	; 0x01
+  f8:	32 81       	ldd	r19, Z+2	; 0x02
+  fa:	2f 5f       	subi	r18, 0xFF	; 255
+  fc:	3f 4f       	sbci	r19, 0xFF	; 255
+  fe:	32 83       	std	Z+2, r19	; 0x02
+ 100:	21 83       	std	Z+1, r18	; 0x01
+ 102:	43 81       	ldd	r20, Z+3	; 0x03
+ 104:	41 30       	cpi	r20, 0x01	; 1
+ 106:	a9 f4       	brne	.+42     	; 0x132 <FlashingLed+0x4c>
+ 108:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <TimeForFlashing>
+ 10c:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <TimeForFlashing+0x1>
+ 110:	82 17       	cp	r24, r18
+ 112:	93 07       	cpc	r25, r19
+ 114:	60 f5       	brcc	.+88     	; 0x16e <FlashingLed+0x88>
+ 116:	12 82       	std	Z+2, r1	; 0x02
+ 118:	11 82       	std	Z+1, r1	; 0x01
+ 11a:	13 82       	std	Z+3, r1	; 0x03
+ 11c:	28 b3       	in	r18, 0x18	; 24
+ 11e:	81 e0       	ldi	r24, 0x01	; 1
+ 120:	90 e0       	ldi	r25, 0x00	; 0
+ 122:	00 84       	ldd	r0, Z+8	; 0x08
+ 124:	02 c0       	rjmp	.+4      	; 0x12a <FlashingLed+0x44>
+ 126:	88 0f       	add	r24, r24
+ 128:	99 1f       	adc	r25, r25
+ 12a:	0a 94       	dec	r0
+ 12c:	e2 f7       	brpl	.-8      	; 0x126 <FlashingLed+0x40>
+ 12e:	82 2b       	or	r24, r18
+ 130:	1d c0       	rjmp	.+58     	; 0x16c <FlashingLed+0x86>
+ 132:	41 11       	cpse	r20, r1
+ 134:	1c c0       	rjmp	.+56     	; 0x16e <FlashingLed+0x88>
+ 136:	40 91 60 00 	lds	r20, 0x0060	; 0x800060 <TimeForFlashing>
+ 13a:	50 91 61 00 	lds	r21, 0x0061	; 0x800061 <TimeForFlashing+0x1>
+ 13e:	42 17       	cp	r20, r18
+ 140:	53 07       	cpc	r21, r19
+ 142:	a8 f4       	brcc	.+42     	; 0x16e <FlashingLed+0x88>
+ 144:	12 82       	std	Z+2, r1	; 0x02
+ 146:	11 82       	std	Z+1, r1	; 0x01
+ 148:	93 83       	std	Z+3, r25	; 0x03
+ 14a:	8f 5f       	subi	r24, 0xFF	; 255
+ 14c:	80 83       	st	Z, r24
+ 14e:	83 30       	cpi	r24, 0x03	; 3
+ 150:	11 f4       	brne	.+4      	; 0x156 <FlashingLed+0x70>
+ 152:	14 82       	std	Z+4, r1	; 0x04
+ 154:	10 82       	st	Z, r1
+ 156:	28 b3       	in	r18, 0x18	; 24
+ 158:	81 e0       	ldi	r24, 0x01	; 1
+ 15a:	90 e0       	ldi	r25, 0x00	; 0
+ 15c:	00 84       	ldd	r0, Z+8	; 0x08
+ 15e:	02 c0       	rjmp	.+4      	; 0x164 <FlashingLed+0x7e>
+ 160:	88 0f       	add	r24, r24
+ 162:	99 1f       	adc	r25, r25
+ 164:	0a 94       	dec	r0
+ 166:	e2 f7       	brpl	.-8      	; 0x160 <FlashingLed+0x7a>
+ 168:	80 95       	com	r24
+ 16a:	82 23       	and	r24, r18
+ 16c:	88 bb       	out	0x18, r24	; 24
+ 16e:	08 95       	ret
+
+00000170 <Flashing>:
+ 170:	8e e6       	ldi	r24, 0x6E	; 110
+ 172:	90 e0       	ldi	r25, 0x00	; 0
+ 174:	b8 df       	rcall	.-144    	; 0xe6 <FlashingLed>
+ 176:	84 e6       	ldi	r24, 0x64	; 100
+ 178:	90 e0       	ldi	r25, 0x00	; 0
+ 17a:	b5 cf       	rjmp	.-150    	; 0xe6 <FlashingLed>
+
+0000017c <CheckInput>:
+ 17c:	fc 01       	movw	r30, r24
+ 17e:	86 b3       	in	r24, 0x16	; 22
+ 180:	90 e0       	ldi	r25, 0x00	; 0
+ 182:	01 84       	ldd	r0, Z+9	; 0x09
+ 184:	02 c0       	rjmp	.+4      	; 0x18a <CheckInput+0xe>
+ 186:	95 95       	asr	r25
+ 188:	87 95       	ror	r24
+ 18a:	0a 94       	dec	r0
+ 18c:	e2 f7       	brpl	.-8      	; 0x186 <CheckInput+0xa>
+ 18e:	80 fd       	sbrc	r24, 0
+ 190:	08 c0       	rjmp	.+16     	; 0x1a2 <CheckInput+0x26>
+ 192:	81 e0       	ldi	r24, 0x01	; 1
+ 194:	87 83       	std	Z+7, r24	; 0x07
+ 196:	85 81       	ldd	r24, Z+5	; 0x05
+ 198:	96 81       	ldd	r25, Z+6	; 0x06
+ 19a:	01 96       	adiw	r24, 0x01	; 1
+ 19c:	96 83       	std	Z+6, r25	; 0x06
+ 19e:	85 83       	std	Z+5, r24	; 0x05
+ 1a0:	01 c0       	rjmp	.+2      	; 0x1a4 <CheckInput+0x28>
+ 1a2:	17 82       	std	Z+7, r1	; 0x07
+ 1a4:	84 81       	ldd	r24, Z+4	; 0x04
+ 1a6:	81 11       	cpse	r24, r1
+ 1a8:	16 c0       	rjmp	.+44     	; 0x1d6 <CheckInput+0x5a>
+ 1aa:	87 81       	ldd	r24, Z+7	; 0x07
+ 1ac:	81 11       	cpse	r24, r1
+ 1ae:	13 c0       	rjmp	.+38     	; 0x1d6 <CheckInput+0x5a>
+ 1b0:	85 81       	ldd	r24, Z+5	; 0x05
+ 1b2:	96 81       	ldd	r25, Z+6	; 0x06
+ 1b4:	00 97       	sbiw	r24, 0x00	; 0
+ 1b6:	79 f0       	breq	.+30     	; 0x1d6 <CheckInput+0x5a>
+ 1b8:	20 91 62 00 	lds	r18, 0x0062	; 0x800062 <TimeForEnableAutoFlashing>
+ 1bc:	30 91 63 00 	lds	r19, 0x0063	; 0x800063 <TimeForEnableAutoFlashing+0x1>
+ 1c0:	82 17       	cp	r24, r18
+ 1c2:	93 07       	cpc	r25, r19
+ 1c4:	40 f4       	brcc	.+16     	; 0x1d6 <CheckInput+0x5a>
+ 1c6:	81 e0       	ldi	r24, 0x01	; 1
+ 1c8:	84 83       	std	Z+4, r24	; 0x04
+ 1ca:	83 83       	std	Z+3, r24	; 0x03
+ 1cc:	16 82       	std	Z+6, r1	; 0x06
+ 1ce:	15 82       	std	Z+5, r1	; 0x05
+ 1d0:	10 82       	st	Z, r1
+ 1d2:	12 82       	std	Z+2, r1	; 0x02
+ 1d4:	11 82       	std	Z+1, r1	; 0x01
+ 1d6:	08 95       	ret
+
+000001d8 <SafetyCheck>:
+ 1d8:	b2 99       	sbic	0x16, 2	; 22
+ 1da:	10 c0       	rjmp	.+32     	; 0x1fc <SafetyCheck+0x24>
+ 1dc:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <DirectionalLightRight+0x4>
+ 1e0:	81 30       	cpi	r24, 0x01	; 1
+ 1e2:	61 f4       	brne	.+24     	; 0x1fc <SafetyCheck+0x24>
+ 1e4:	10 92 66 00 	sts	0x0066, r1	; 0x800066 <DirectionalLightRight+0x2>
+ 1e8:	10 92 65 00 	sts	0x0065, r1	; 0x800065 <DirectionalLightRight+0x1>
+ 1ec:	80 93 67 00 	sts	0x0067, r24	; 0x800067 <DirectionalLightRight+0x3>
+ 1f0:	10 92 68 00 	sts	0x0068, r1	; 0x800068 <DirectionalLightRight+0x4>
+ 1f4:	10 92 64 00 	sts	0x0064, r1	; 0x800064 <DirectionalLightRight>
+ 1f8:	c4 98       	cbi	0x18, 4	; 24
+ 1fa:	08 95       	ret
+ 1fc:	96 b3       	in	r25, 0x16	; 22
+ 1fe:	89 2f       	mov	r24, r25
+ 200:	82 70       	andi	r24, 0x02	; 2
+ 202:	91 fd       	sbrc	r25, 1
+ 204:	11 c0       	rjmp	.+34     	; 0x228 <SafetyCheck+0x50>
+ 206:	90 91 72 00 	lds	r25, 0x0072	; 0x800072 <DirectionalLightLeft+0x4>
+ 20a:	91 30       	cpi	r25, 0x01	; 1
+ 20c:	71 f4       	brne	.+28     	; 0x22a <SafetyCheck+0x52>
+ 20e:	10 92 70 00 	sts	0x0070, r1	; 0x800070 <DirectionalLightLeft+0x2>
+ 212:	10 92 6f 00 	sts	0x006F, r1	; 0x80006f <DirectionalLightLeft+0x1>
+ 216:	90 93 71 00 	sts	0x0071, r25	; 0x800071 <DirectionalLightLeft+0x3>
+ 21a:	10 92 72 00 	sts	0x0072, r1	; 0x800072 <DirectionalLightLeft+0x4>
+ 21e:	10 92 6e 00 	sts	0x006E, r1	; 0x80006e <DirectionalLightLeft>
+ 222:	c3 98       	cbi	0x18, 3	; 24
+ 224:	81 e0       	ldi	r24, 0x01	; 1
+ 226:	08 95       	ret
+ 228:	80 e0       	ldi	r24, 0x00	; 0
+ 22a:	08 95       	ret
+
+0000022c <CheckButton>:
+ 22c:	d5 df       	rcall	.-86     	; 0x1d8 <SafetyCheck>
+ 22e:	81 11       	cpse	r24, r1
+ 230:	06 c0       	rjmp	.+12     	; 0x23e <CheckButton+0x12>
+ 232:	8e e6       	ldi	r24, 0x6E	; 110
+ 234:	90 e0       	ldi	r25, 0x00	; 0
+ 236:	a2 df       	rcall	.-188    	; 0x17c <CheckInput>
+ 238:	84 e6       	ldi	r24, 0x64	; 100
+ 23a:	90 e0       	ldi	r25, 0x00	; 0
+ 23c:	9f cf       	rjmp	.-194    	; 0x17c <CheckInput>
+ 23e:	08 95       	ret
+
+00000240 <WriteTime>:
+ 240:	bc 01       	movw	r22, r24
+ 242:	80 e0       	ldi	r24, 0x00	; 0
+ 244:	90 e0       	ldi	r25, 0x00	; 0
+ 246:	33 c0       	rjmp	.+102    	; 0x2ae <eeprom_write_word>
+
+00000248 <CheckSetButton>:
+ 248:	b0 99       	sbic	0x16, 0	; 22
+ 24a:	23 c0       	rjmp	.+70     	; 0x292 <__stack+0x33>
+ 24c:	26 b3       	in	r18, 0x16	; 22
+ 24e:	24 70       	andi	r18, 0x04	; 4
+ 250:	60 e0       	ldi	r22, 0x00	; 0
+ 252:	80 e0       	ldi	r24, 0x00	; 0
+ 254:	90 e0       	ldi	r25, 0x00	; 0
+ 256:	30 e0       	ldi	r19, 0x00	; 0
+ 258:	46 b3       	in	r20, 0x16	; 22
+ 25a:	44 70       	andi	r20, 0x04	; 4
+ 25c:	50 e0       	ldi	r21, 0x00	; 0
+ 25e:	24 17       	cp	r18, r20
+ 260:	35 07       	cpc	r19, r21
+ 262:	41 f0       	breq	.+16     	; 0x274 <__stack+0x15>
+ 264:	01 96       	adiw	r24, 0x01	; 1
+ 266:	ef e0       	ldi	r30, 0x0F	; 15
+ 268:	f7 e2       	ldi	r31, 0x27	; 39
+ 26a:	31 97       	sbiw	r30, 0x01	; 1
+ 26c:	f1 f7       	brne	.-4      	; 0x26a <__stack+0xb>
+ 26e:	00 c0       	rjmp	.+0      	; 0x270 <__stack+0x11>
+ 270:	00 00       	nop
+ 272:	04 c0       	rjmp	.+8      	; 0x27c <__stack+0x1d>
+ 274:	61 30       	cpi	r22, 0x01	; 1
+ 276:	11 f0       	breq	.+4      	; 0x27c <__stack+0x1d>
+ 278:	60 e0       	ldi	r22, 0x00	; 0
+ 27a:	ee cf       	rjmp	.-36     	; 0x258 <CheckSetButton+0x10>
+ 27c:	46 b3       	in	r20, 0x16	; 22
+ 27e:	44 70       	andi	r20, 0x04	; 4
+ 280:	50 e0       	ldi	r21, 0x00	; 0
+ 282:	24 17       	cp	r18, r20
+ 284:	35 07       	cpc	r19, r21
+ 286:	11 f0       	breq	.+4      	; 0x28c <__stack+0x2d>
+ 288:	61 e0       	ldi	r22, 0x01	; 1
+ 28a:	e6 cf       	rjmp	.-52     	; 0x258 <CheckSetButton+0x10>
+ 28c:	d9 df       	rcall	.-78     	; 0x240 <WriteTime>
+ 28e:	a8 95       	wdr
+ 290:	fe cf       	rjmp	.-4      	; 0x28e <__stack+0x2f>
+ 292:	08 95       	ret
+
+00000294 <ReadTime>:
+ 294:	80 e0       	ldi	r24, 0x00	; 0
+ 296:	90 e0       	ldi	r25, 0x00	; 0
+ 298:	05 d0       	rcall	.+10     	; 0x2a4 <eeprom_read_word>
+ 29a:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <TimeForFlashing+0x1>
+ 29e:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <TimeForFlashing>
+ 2a2:	08 95       	ret
+
+000002a4 <eeprom_read_word>:
+ 2a4:	a8 e1       	ldi	r26, 0x18	; 24
+ 2a6:	b0 e0       	ldi	r27, 0x00	; 0
+ 2a8:	42 e0       	ldi	r20, 0x02	; 2
+ 2aa:	50 e0       	ldi	r21, 0x00	; 0
+ 2ac:	05 c0       	rjmp	.+10     	; 0x2b8 <eeprom_read_blraw>
+
+000002ae <eeprom_write_word>:
+ 2ae:	12 d0       	rcall	.+36     	; 0x2d4 <eeprom_write_byte>
+ 2b0:	27 2f       	mov	r18, r23
+ 2b2:	11 c0       	rjmp	.+34     	; 0x2d6 <eeprom_write_r18>
+
+000002b4 <eeprom_read_block>:
+ 2b4:	dc 01       	movw	r26, r24
+ 2b6:	cb 01       	movw	r24, r22
+
+000002b8 <eeprom_read_blraw>:
+ 2b8:	fc 01       	movw	r30, r24
+ 2ba:	e1 99       	sbic	0x1c, 1	; 28
+ 2bc:	fe cf       	rjmp	.-4      	; 0x2ba <eeprom_read_blraw+0x2>
+ 2be:	06 c0       	rjmp	.+12     	; 0x2cc <eeprom_read_blraw+0x14>
+ 2c0:	ff bb       	out	0x1f, r31	; 31
+ 2c2:	ee bb       	out	0x1e, r30	; 30
+ 2c4:	e0 9a       	sbi	0x1c, 0	; 28
+ 2c6:	31 96       	adiw	r30, 0x01	; 1
+ 2c8:	0d b2       	in	r0, 0x1d	; 29
+ 2ca:	0d 92       	st	X+, r0
+ 2cc:	41 50       	subi	r20, 0x01	; 1
+ 2ce:	50 40       	sbci	r21, 0x00	; 0
+ 2d0:	b8 f7       	brcc	.-18     	; 0x2c0 <eeprom_read_blraw+0x8>
+ 2d2:	08 95       	ret
+
+000002d4 <eeprom_write_byte>:
+ 2d4:	26 2f       	mov	r18, r22
+
+000002d6 <eeprom_write_r18>:
+ 2d6:	e1 99       	sbic	0x1c, 1	; 28
+ 2d8:	fe cf       	rjmp	.-4      	; 0x2d6 <eeprom_write_r18>
+ 2da:	1c ba       	out	0x1c, r1	; 28
+ 2dc:	9f bb       	out	0x1f, r25	; 31
+ 2de:	8e bb       	out	0x1e, r24	; 30
+ 2e0:	2d bb       	out	0x1d, r18	; 29
+ 2e2:	0f b6       	in	r0, 0x3f	; 63
+ 2e4:	f8 94       	cli
+ 2e6:	e2 9a       	sbi	0x1c, 2	; 28
+ 2e8:	e1 9a       	sbi	0x1c, 1	; 28
+ 2ea:	0f be       	out	0x3f, r0	; 63
+ 2ec:	01 96       	adiw	r24, 0x01	; 1
+ 2ee:	08 95       	ret
+
+000002f0 <_exit>:
+ 2f0:	f8 94       	cli
+
+000002f2 <__stop_program>:
+ 2f2:	ff cf       	rjmp	.-2      	; 0x2f2 <__stop_program>

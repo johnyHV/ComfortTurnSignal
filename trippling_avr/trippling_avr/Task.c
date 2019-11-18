@@ -95,28 +95,28 @@ void CheckButton(void)
  *  @param Light - struct with configuration for specific input
  *  @return void
 */
-void CheckInput(struct DirectionalLight *Button)
-{
+void CheckInput(struct DirectionalLight *Button) {
 	// Check Left
-	if (!(PINB & (1 << Button->Button)))
-	{
+	if (!(PINB & (1 << Button->Button))) {
 		Button->StartTimerCounterUp = TRUE;
 		Button->TimeCountUp++;
 	}
-	else
-	{
+	else {
 		Button->StartTimerCounterUp = FALSE;
+		//Button->TimeCountUp = 0;
 	}
 	
-	if ((Button->EnableFlashing == FALSE) && (Button->StartTimerCounterUp == FALSE))
-	{
-		if ((Button->TimeCountUp > 0) && (Button->TimeCountUp < TimeForEnableAutoFlashing))
-		{
+	if ((Button->EnableFlashing == FALSE) && (Button->StartTimerCounterUp == FALSE)) {
+		if ((Button->TimeCountUp > 0) && (Button->TimeCountUp < TimeForEnableAutoFlashing)) {
 			Button->EnableFlashing = TRUE;
 			Button->StatusFlashing = BULB_ON;
 			Button->TimeCountUp = 0;
 			Button->CounterFlashing = 0;
 			Button->TimerCounterFlashing = 0;
+		} else {
+			if (Button->TimeCountUp > TimeForEnableAutoFlashing) {
+				Button->TimeCountUp = 0;
+			}
 		}
 	}
 }

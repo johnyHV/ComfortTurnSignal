@@ -32,7 +32,7 @@ int main(void)
 	//initTimer1();
 	//initInterrupt();
 	//WriteTime(TimeForFlashing); // For manual first init Time 
-	ReadTime();
+	//ReadTime();
 	CheckSetButton();
 	
 	wdt_reset();

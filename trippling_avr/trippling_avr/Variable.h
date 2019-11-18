@@ -16,11 +16,11 @@
 
 #define F_CPU 8000000				///< 8.0Mhz/8 = 1.0Mhz
 
-#define INPUT_LEFT PB2				///< LEFT input
-#define INPUT_RIGHT PB1				///< RIGHT input
+#define INPUT_LEFT PB4				///< LEFT input
+#define INPUT_RIGHT PB3				///< RIGHT input
 #define INPUT_SET_BUTTON PB0		///< configuration button input
-#define RELE_LEFT PB3				///< LEFT rele
-#define RELE_RIGHT PB4				///< RIGHT rele
+#define RELE_LEFT PB2				///< LEFT rele
+#define RELE_RIGHT PB1				///< RIGHT rele
 
 #define EEPROM_TIME_FLASHING 0x00	///< EEPROM address for store uint16 value for time BULB ON and OFF
 
