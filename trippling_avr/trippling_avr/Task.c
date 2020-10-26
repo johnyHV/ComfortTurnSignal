@@ -96,7 +96,7 @@ void CheckButton(void)
  *  @return void
 */
 void CheckInput(struct DirectionalLight *Button) {
-	// Check Left
+	// Check input
 	if (!(PINB & (1 << Button->Button))) {
 		Button->StartTimerCounterUp = TRUE;
 		Button->TimeCountUp++;
@@ -106,8 +106,9 @@ void CheckInput(struct DirectionalLight *Button) {
 		//Button->TimeCountUp = 0;
 	}
 	
+	/* check if is enable flashing, and if is timer OFF */
 	if ((Button->EnableFlashing == FALSE) && (Button->StartTimerCounterUp == FALSE)) {
-		if ((Button->TimeCountUp > 0) && (Button->TimeCountUp < TimeForEnableAutoFlashing)) {
+		if ((Button->TimeCountUp > TimeMinimalForEnableAutoFlashing) && (Button->TimeCountUp < TimeForEnableAutoFlashing)) {
 			Button->EnableFlashing = TRUE;
 			Button->StatusFlashing = BULB_ON;
 			Button->TimeCountUp = 0;
@@ -136,11 +137,10 @@ uint8_t SafetyCheck(void)
 	{
 		if (DirectionalLightRight.EnableFlashing == TRUE)
 		{
-			DirectionalLightRight.TimerCounterFlashing = 0;
-			DirectionalLightRight.StatusFlashing = BULB_ON;
-			DirectionalLightRight.EnableFlashing = FALSE;
-			DirectionalLightRight.CounterFlashing = 0;
+			ClearStruct();
 			PORTB &= ~(1 << RELE_RIGHT);   // Rele Offf
+			PORTB &= ~(1 << RELE_LEFT);   // Rele Offf
+			_delay_ms(SAFETY_DELAY);
 			return TRUE;
 		}
 	}
@@ -150,11 +150,10 @@ uint8_t SafetyCheck(void)
 	{
 		if (DirectionalLightLeft.EnableFlashing == TRUE)
 		{
-			DirectionalLightLeft.TimerCounterFlashing = 0;
-			DirectionalLightLeft.StatusFlashing = BULB_ON;
-			DirectionalLightLeft.EnableFlashing = FALSE;
-			DirectionalLightLeft.CounterFlashing = 0;
+			ClearStruct();
 			PORTB &= ~(1 << RELE_LEFT);   // Rele Offf
+			PORTB &= ~(1 << RELE_RIGHT);   // Rele Offf
+			_delay_ms(SAFETY_DELAY);
 			return TRUE;
 		}
 	}
@@ -167,10 +166,20 @@ uint8_t SafetyCheck(void)
  *  Function for check if is activation configuration button
  *
  *  @param void
- *  @return void
+ *  @return uint8_t
 */
-void CheckSetButton()
+uint8_t CheckSetButton()
 {
+	/* safety check, if si realy enable configuration jumper, waiting time is 500mS */
+	for (uint8_t i=0; i < 10 ;i++) 
+	{
+		if (PINB & (1 << INPUT_SET_BUTTON)) 
+		{
+			return 0;
+		}
+		_delay_ms(50);
+	}
+	
 	if (!(PINB & (1 << INPUT_SET_BUTTON)))
 	{
 		uint8_t InitialStatus = (PINB & (1 << INPUT_LEFT));
@@ -191,11 +200,15 @@ void CheckSetButton()
 				WriteTime(BulbStatusCycle);
 				while(1)
 				{
+					ReadTime();
+					return 1;
 					wdt_reset();
 				}
 			}
 		}
 	}
+	
+	return 0;
 }
 
 /** @brief WriteTime
@@ -220,4 +233,5 @@ void WriteTime(uint16_t CycleTime)
 void ReadTime(void)
 {
 	TimeForFlashing = eeprom_read_word(EEPROM_TIME_FLASHING);
+	TimeForEnableAutoFlashing = (uint16_t) (((TimeForFlashing * REFRESH_TIME) / 100) * 80);
 }

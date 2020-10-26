@@ -32,8 +32,10 @@ int main(void)
 	//initTimer1();
 	//initInterrupt();
 	//WriteTime(TimeForFlashing); // For manual first init Time 
-	//ReadTime();
+	#if (EEPROM_ENABLE == 1)
+	ReadTime();
 	CheckSetButton();
+	#endif
 	
 	wdt_reset();
 	wdt_enable(WDTO_1S);
