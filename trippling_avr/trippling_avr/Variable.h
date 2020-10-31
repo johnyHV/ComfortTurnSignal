@@ -18,6 +18,7 @@
 extern uint16_t TimeForEnableAutoFlashing;	///< Cycle time for enable trippling
 uint16_t TimeMinimalForEnableAutoFlashing;	///< Minimum cycle time for enable trippling
 extern uint16_t TimeForFlashing;			///< Cycle for bulb flashing
+extern uint8_t BlinkIntervalValue;			///< Blink inverval.
 
 struct DirectionalLight {
 	uint8_t CounterFlashing;				///< Bulb flash counter

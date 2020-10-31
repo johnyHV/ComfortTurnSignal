@@ -32,6 +32,7 @@ int main(void)
 	//initTimer1();
 	//initInterrupt();
 	//WriteTime(TimeForFlashing); // For manual first init Time 
+	//CheckBlinkIntervalJumper();
 	#if (EEPROM_ENABLE == 1)
 	ReadTime();
 	CheckSetButton();

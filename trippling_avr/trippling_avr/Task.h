@@ -27,6 +27,7 @@ void CheckButton(void);
 void CheckInput(struct DirectionalLight *);
 uint8_t SafetyCheck(void);
 uint8_t CheckSetButton();
+uint8_t CheckBlinkIntervalJumper();
 void WriteTime(uint16_t);
 void ReadTime(void);
 

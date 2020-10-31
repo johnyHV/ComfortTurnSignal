@@ -13,15 +13,26 @@
 
 #include <avr/io.h>
 
-#define SOFTWARE_VERSION		"1.4.0"	///< Software version
+#define SOFTWARE_VERSION		"1.4.1"	///< Software version
+#define HARDWARE_VERSION		12		///< hardware version 1.1 or 1.2
 
 #define F_CPU 8000000					///< 8.0Mhz/8 = 1.0Mhz
 
+#if (HARDWARE_VERSION == 12)
 #define INPUT_LEFT				PB2		///< LEFT input
 #define INPUT_RIGHT				PB1		///< RIGHT input
 #define INPUT_SET_BUTTON		PB0		///< configuration button input
 #define RELE_LEFT				PB4		///< LEFT rele
 #define RELE_RIGHT				PB3		///< RIGHT rele
+#endif
+
+#if (HARDWARE_VERSION == 11)
+#define INPUT_LEFT				PB4		///< LEFT input
+#define INPUT_RIGHT				PB3		///< RIGHT input
+#define INPUT_SET_BUTTON		PB0		///< configuration button input
+#define RELE_LEFT				PB2		///< LEFT rele
+#define RELE_RIGHT				PB1		///< RIGHT rele
+#endif
 
 #define EEPROM_ENABLE			0		///< Enable/disable EEPROM memmory
 #define EEPROM_TIME_FLASHING	0x00	///< EEPROM address for store uint16 value for time BULB ON and OFF

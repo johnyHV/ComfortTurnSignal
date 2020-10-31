@@ -1,22 +1,22 @@
 /** @file Task.c
- *  @brief A System function
- *
- *  System function
- *
- *  @date 11/2/2018 16:59:18
- *  @author Miroslav Pivovarsky (mpivovarsky)
- *  @version 0.1
- *  @bug No know bugs.
- */
+*  @brief A System function
+*
+*  System function
+*
+*  @date 11/2/2018 16:59:18
+*  @author Miroslav Pivovarsky (mpivovarsky)
+*  @version 0.1
+*  @bug No know bugs.
+*/
 
 #include "Task.h"
 
 /** @brief Flashing
- *
- *  Bulb flashing
- *
- *  @param void
- *  @return void
+*
+*  Bulb flashing
+*
+*  @param void
+*  @return void
 */
 void Flashing(void)
 {
@@ -25,17 +25,17 @@ void Flashing(void)
 }
 
 /** @brief FlashingLed
- *
- *  specific bulb flashing
- *
- *  @param Light - struct with configuration for specific bulb
- *  @return void
+*
+*  specific bulb flashing
+*
+*  @param Light - struct with configuration for specific bulb
+*  @return void
 */
 void FlashingLed(struct DirectionalLight *Light)
 {
 	if (Light->EnableFlashing == TRUE)
 	{
-		if (Light->CounterFlashing < BLINK_INTERVAL)
+		if (Light->CounterFlashing < BlinkIntervalValue)
 		{
 			Light->TimerCounterFlashing++;
 			
@@ -58,7 +58,7 @@ void FlashingLed(struct DirectionalLight *Light)
 					Light->StatusFlashing = BULB_ON;
 					Light->CounterFlashing++;
 					
-					if (Light->CounterFlashing == BLINK_INTERVAL)
+					if (Light->CounterFlashing == BlinkIntervalValue)
 					{
 						Light->EnableFlashing = FALSE;
 						Light->CounterFlashing = 0;
@@ -73,11 +73,11 @@ void FlashingLed(struct DirectionalLight *Light)
 }
 
 /** @brief CheckButton
- *
- *  Function for check if is trippling not activate
- *
- *  @param void
- *  @return void
+*
+*  Function for check if is trippling not activate
+*
+*  @param void
+*  @return void
 */
 void CheckButton(void)
 {
@@ -89,11 +89,11 @@ void CheckButton(void)
 }
 
 /** @brief CheckInput
- *
- *  Function for check specific input for actiovation trippling
- *
- *  @param Light - struct with configuration for specific input
- *  @return void
+*
+*  Function for check specific input for actiovation trippling
+*
+*  @param Light - struct with configuration for specific input
+*  @return void
 */
 void CheckInput(struct DirectionalLight *Button) {
 	// Check input
@@ -114,7 +114,7 @@ void CheckInput(struct DirectionalLight *Button) {
 			Button->TimeCountUp = 0;
 			Button->CounterFlashing = 0;
 			Button->TimerCounterFlashing = 0;
-		} else {
+			} else {
 			if (Button->TimeCountUp > TimeForEnableAutoFlashing) {
 				Button->TimeCountUp = 0;
 			}
@@ -123,12 +123,12 @@ void CheckInput(struct DirectionalLight *Button) {
 }
 
 /** @brief SafetyCheck
- *
- *  Safety disable trippling if is activation another direction
- *
- *  @param void
- *  @return uint8_t - status TRUE - safety disable is activate
-							 FALSE - safety disable is not activate
+*
+*  Safety disable trippling if is activation another direction
+*
+*  @param void
+*  @return uint8_t - status TRUE - safety disable is activate
+FALSE - safety disable is not activate
 */
 uint8_t SafetyCheck(void)
 {
@@ -162,18 +162,18 @@ uint8_t SafetyCheck(void)
 }
 
 /** @brief CheckSetButton
- *
- *  Function for check if is activation configuration button
- *
- *  @param void
- *  @return uint8_t
+*
+*  Function for check if is activation configuration button
+*
+*  @param void
+*  @return uint8_t
 */
 uint8_t CheckSetButton()
 {
 	/* safety check, if si realy enable configuration jumper, waiting time is 500mS */
-	for (uint8_t i=0; i < 10 ;i++) 
+	for (uint8_t i=0; i < 10 ;i++)
 	{
-		if (PINB & (1 << INPUT_SET_BUTTON)) 
+		if (PINB & (1 << INPUT_SET_BUTTON))
 		{
 			return 0;
 		}
@@ -185,10 +185,10 @@ uint8_t CheckSetButton()
 		uint8_t InitialStatus = (PINB & (1 << INPUT_LEFT));
 		uint16_t BulbStatusCycle = 0;
 		uint8_t StartCounter = FALSE;
-	
+		
 		while (1)
 		{
-			if (InitialStatus != (PINB & (1 << INPUT_LEFT))) 
+			if (InitialStatus != (PINB & (1 << INPUT_LEFT)))
 			{
 				BulbStatusCycle++;
 				StartCounter = TRUE;
@@ -211,12 +211,44 @@ uint8_t CheckSetButton()
 	return 0;
 }
 
+uint8_t CheckBlinkIntervalJumper()
+{
+	if (!(PINB & (1 << INPUT_SET_BUTTON)))
+	{
+		/* safety check, if si realy enable configuration jumper, waiting time is 500mS */
+		for (uint8_t i=0; i < 10 ;i++)
+		{
+			if (PINB & (1 << INPUT_SET_BUTTON))
+			{
+				return 0;
+			}
+			_delay_ms(50);
+		}
+		
+		if (!(PINB & (1 << INPUT_SET_BUTTON)))
+		{
+			BlinkIntervalValue = 2;
+			return 1;
+			
+		}
+		else
+		{
+			BlinkIntervalValue = 3;
+		}
+	}
+	else
+	{
+		BlinkIntervalValue = 3;
+	}
+	return 0;
+}
+
 /** @brief WriteTime
- *
- *  Write time to EEPROM
- *
- *  @param CycleTime - Value for write to EEPROM
- *  @return void
+*
+*  Write time to EEPROM
+*
+*  @param CycleTime - Value for write to EEPROM
+*  @return void
 */
 void WriteTime(uint16_t CycleTime)
 {
@@ -224,11 +256,11 @@ void WriteTime(uint16_t CycleTime)
 }
 
 /** @brief ReadTime
- *
- *  Function for read time for flashing from EEPROM
- *
- *  @param void
- *  @return void
+*
+*  Function for read time for flashing from EEPROM
+*
+*  @param void
+*  @return void
 */
 void ReadTime(void)
 {

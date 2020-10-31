@@ -17,6 +17,7 @@ struct DirectionalLight DirectionalLightRight = {0, 0, BULB_OFF, FALSE, 0, 0, RE
 uint16_t TimeForEnableAutoFlashing = TIMEOUT_ENABLE_BULB/REFRESH_TIME; 
 uint16_t TimeMinimalForEnableAutoFlashing = MIN_TIME_FOR_EN_TRIPP/REFRESH_TIME;
 uint16_t TimeForFlashing = TIME_ON_OFF_LENGTH/REFRESH_TIME;
+extern uint8_t BlinkIntervalValue = BLINK_INTERVAL;
 
 void ClearStruct () {
 	DirectionalLightLeft.TimerCounterFlashing = 0;
